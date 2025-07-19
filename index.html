@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PharmAssist - Smart Pharmacy Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="bg-background text-foreground">
+    <div class="min-h-screen bg-white flex flex-col max-w-md mx-auto border-x border-gray-200">
+        <!-- Header -->
+        <div class="bg-white text-black p-4 shadow-sm">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                    <i data-lucide="pill" class="w-5 h-5"></i>
+                </div>
+                <h1 class="text-lg font-medium">PharmAssist</h1>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20" id="main-content">
+            <!-- Home Screen -->
+            <div id="home-screen" class="screen active">
+                <div class="p-4 space-y-6">
+                    <!-- Greeting -->
+                    <div class="space-y-2">
+                        <h2 class="text-2xl font-medium">Hi Maria! 👋</h2>
+                        <p class="text-gray-600">Here's your medication summary for today</p>
+                    </div>
+
+                    <!-- Today's Medications -->
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <div class="p-4 pb-3 border-b border-gray-100">
+                            <h3 class="font-medium flex items-center gap-2">
+                                <i data-lucide="pill" class="w-5 h-5 text-gray-900"></i>
+                                Today's Medications
+                            </h3>
+                        </div>
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                    <div>
+                                        <p class="font-medium">Losartan 100mg</p>
+                                        <div class="flex items-center text-sm text-gray-600">
+                                            <i data-lucide="clock" class="w-4 h-4 mr-1"></i>
+                                            8:00 AM
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 rounded-full bg-gray-300"></div>
+                                    <div>
+                                        <p class="font-medium">Metformin 500mg</p>
+                                        <div class="flex items-center text-sm text-gray-600">
+                                            <i data-lucide="clock" class="w-4 h-4 mr-1"></i>
+                                            12:00 PM
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50">
+                                    Mark Taken
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 rounded-full bg-gray-300"></div>
+                                    <div>
+                                        <p class="font-medium">Atorvastatin 20mg</p>
+                                        <div class="flex items-center text-sm text-gray-600">
+                                            <i data-lucide="clock" class="w-4 h-4 mr-1"></i>
+                                            7:00 PM
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50">
+                                    Mark Taken
+                                </button>
+                            </div>
+                            <button class="w-full text-gray-600 hover:text-gray-900 text-sm mt-2" onclick="showScreen('tracker')">
+                                View Full Schedule
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Refills Needed -->
+                    <div class="bg-white rounded-lg border border-orange-200 shadow-sm bg-orange-50/30">
+                        <div class="p-4 pb-3 border-b border-orange-100">
+                            <h3 class="font-medium flex items-center gap-2">
+                                <i data-lucide="alert-circle" class="w-5 h-5 text-orange-500"></i>
+                                Refills Needed
+                                <span class="ml-auto bg-red-600 text-white text-xs px-2 py-1 rounded-full">2</span>
+                            </h3>
+                        </div>
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-200">
+                                <div>
+                                    <p class="font-medium">Losartan 100mg</p>
+                                    <p class="text-sm text-gray-600">0 refills left</p>
+                                </div>
+                                <button class="px-4 py-2 bg-gray-900 text-white text-sm rounded-md hover:bg-gray-800">
+                                    Request Refill
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-200">
+                                <div>
+                                    <p class="font-medium">Metformin 500mg</p>
+                                    <p class="text-sm text-gray-600">1 refill left</p>
+                                </div>
+                                <button class="px-4 py-2 bg-gray-900 text-white text-sm rounded-md hover:bg-gray-800">
+                                    Request Refill
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Messages -->
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <div class="p-4 pb-3 border-b border-gray-100">
+                            <h3 class="font-medium flex items-center gap-2">
+                                <i data-lucide="message-square" class="w-5 h-5 text-blue-500"></i>
+                                Recent Messages
+                            </h3>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
+                                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm">
+                                    Dr
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm">Dr. Rodriguez (Pharmacist)</p>
+                                    <p class="text-sm text-gray-600">Your new Losartan dosage is ready for pickup</p>
+                                    <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
+                                </div>
+                            </div>
+                            <button class="w-full mt-3 text-gray-600 hover:text-gray-900 text-sm flex items-center justify-center" onclick="showScreen('chat')">
+                                <i data-lucide="message-square" class="w-4 h-4 mr-2"></i>
+                                Open Chat
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="flex items-center justify-center p-3 border border-gray-300 rounded-lg hover:bg-gray-50" onclick="showScreen('pharmacies')">
+                            <i data-lucide="map-pin" class="w-4 h-4 mr-2"></i>
+                            Find Pharmacy
+                        </button>
+                        <button class="flex items-center justify-center p-3 border border-gray-300 rounded-lg hover:bg-gray-50" onclick="showScreen('chat')">
+                            <i data-lucide="message-square" class="w-4 h-4 mr-2"></i>
+                            Ask Pharmacist
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prescriptions Screen -->
+            <div id="prescriptions-screen" class="screen">
+                <div class="p-4">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-medium mb-2">My Prescriptions</h2>
+                        <p class="text-gray-600">Manage your current and past medications</p>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="mb-4">
+                        <div class="border-b border-gray-200">
+                            <nav class="flex space-x-8">
+                                <button class="prescription-tab active py-2 px-1 border-b-2 border-gray-900 text-gray-900 text-sm font-medium" data-tab="current">
+                                    Current Prescriptions
+                                </button>
+                                <button class="prescription-tab py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 text-sm font-medium" data-tab="past">
+                                    Past Medications
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Current Prescriptions -->
+                    <div id="current-prescriptions" class="tab-content active space-y-4">
+                        <div class="bg-white rounded-lg border border-orange-200 shadow-sm bg-orange-50/30">
+                            <div class="p-4 pb-3 border-b border-orange-100">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                                            <i data-lucide="pill" class="w-5 h-5 text-gray-900"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-medium">Losartan 100mg</h3>
+                                            <p class="text-sm text-gray-600">Once daily</p>
+                                        </div>
+                                    </div>
+                                    <span class="bg-red-600 text-white text-xs px-2 py-1 rounded-full">Refill Needed</span>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+                                    <span class="text-gray-600">Prescribed by:</span>
+                                    <span>Dr. Lopez</span>
+                                    <span class="text-gray-600">Date issued:</span>
+                                    <span>2024-01-15</span>
+                                    <span class="text-gray-600">Refills left:</span>
+                                    <span class="text-orange-600">0</span>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-lg mb-4">
+                                    <p class="text-sm">
+                                        <strong>Instructions:</strong> Take with or without food. Monitor blood pressure regularly.
+                                    </p>
+                                </div>
+                                <button class="px-4 py-2 bg-orange-600 text-white text-sm rounded-md hover:bg-orange-700">
+                                    Contact Doctor
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="p-4 pb-3 border-b border-gray-100">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                                            <i data-lucide="pill" class="w-5 h-5 text-gray-900"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-medium">Metformin 500mg</h3>
+                                            <p class="text-sm text-gray-600">Twice daily</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+                                    <span class="text-gray-600">Prescribed by:</span>
+                                    <span>Dr. Johnson</span>
+                                    <span class="text-gray-600">Date issued:</span>
+                                    <span>2024-01-10</span>
+                                    <span class="text-gray-600">Refills left:</span>
+                                    <span>2</span>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-lg mb-4">
+                                    <p class="text-sm">
+                                        <strong>Instructions:</strong> Take with meals to reduce stomach upset.
+                                    </p>
+                                </div>
+                                <button class="px-4 py-2 bg-gray-900 text-white text-sm rounded-md hover:bg-gray-800">
+                                    Request Refill
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Past Prescriptions -->
+                    <div id="past-prescriptions" class="tab-content space-y-4">
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm opacity-75">
+                            <div class="p-4">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                                            <i data-lucide="pill" class="w-5 h-5 text-gray-500"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium">Losartan 50mg</h3>
+                                            <p class="text-sm text-gray-600">Once daily</p>
+                                        </div>
+                                    </div>
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">Discontinued</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4 text-sm text-gray-600 mb-3">
+                                    <span>Prescribed by: Dr. Lopez</span>
+                                    <span>Period: 2023-11-15 - 2024-01-15</span>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-lg">
+                                    <p class="text-sm">
+                                        <strong>Reason for discontinuation:</strong> Dosage increased to 100mg
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Screen -->
+            <div id="chat-screen" class="screen flex flex-col h-full">
+                <!-- Chat Header -->
+                <div class="p-4 border-b border-gray-200 bg-white">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white">Dr</div>
+                        <div>
+                            <h2 class="font-medium">Dr. Rodriguez</h2>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <span class="text-sm text-gray-600">Online</span>
+                                <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">Pharmacist</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Questions -->
+                <div class="p-4 border-b border-gray-200 bg-gray-50">
+                    <p class="text-sm text-gray-600 mb-3">Quick questions:</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="text-xs px-3 py-1 border border-gray-300 rounded-md hover:bg-white" onclick="sendQuickMessage('Can I take this with food?')">
+                            Can I take this with food?
+                        </button>
+                        <button class="text-xs px-3 py-1 border border-gray-300 rounded-md hover:bg-white" onclick="sendQuickMessage('What are the side effects?')">
+                            Side effects?
+                        </button>
+                        <button class="text-xs px-3 py-1 border border-gray-300 rounded-md hover:bg-white" onclick="sendQuickMessage('Can I refill now?')">
+                            Can I refill now?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div class="flex-1 p-4 space-y-4 overflow-y-auto" id="chat-messages">
+                    <div class="flex justify-start">
+                        <div class="max-w-xs">
+                            <div class="p-3 rounded-lg bg-gray-100">
+                                <p class="text-sm">Hello Maria! I see your Losartan prescription has been updated to 100mg. Your medication is ready for pickup.</p>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">2:30 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <div class="max-w-xs">
+                            <div class="p-3 rounded-lg bg-gray-900 text-white">
+                                <p class="text-sm">Thank you! Should I take it at the same time as before?</p>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1 text-right">2:32 PM</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-start">
+                        <div class="max-w-xs">
+                            <div class="p-3 rounded-lg bg-gray-100">
+                                <p class="text-sm">Yes, continue taking it once daily in the morning. Monitor your blood pressure and let me know if you experience any side effects.</p>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">2:35 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message Input -->
+                <div class="p-4 border-t border-gray-200 bg-white">
+                    <div class="flex items-center space-x-2">
+                        <button class="p-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                            <i data-lucide="camera" class="w-4 h-4"></i>
+                        </button>
+                        <button class="p-2 border border-gray-300 rounded-md hover:bg-gray-50">
+                            <i data-lucide="paperclip" class="w-4 h-4"></i>
+                        </button>
+                        <input type="text" id="message-input" placeholder="Type your message..." class="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                        <button class="p-2 bg-gray-900 text-white rounded-md hover:bg-gray-800" onclick="sendMessage()">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2 text-center">
+                        Send a photo of your prescription for quick help
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tracker Screen -->
+            <div id="tracker-screen" class="screen">
+                <div class="p-4 space-y-6">
+                    <div class="space-y-2">
+                        <h2 class="text-2xl font-medium">Medication Tracker</h2>
+                        <p class="text-gray-600">Track your medication adherence and build healthy habits</p>
+                    </div>
+
+                    <!-- Adherence Stats -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4 text-center">
+                            <div class="text-2xl font-bold text-green-600">85%</div>
+                            <p class="text-xs text-gray-600">This Week</p>
+                        </div>
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4 text-center">
+                            <div class="text-2xl font-bold text-blue-600">78%</div>
+                            <p class="text-xs text-gray-600">This Month</p>
+                        </div>
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4 text-center">
+                            <div class="text-2xl font-bold text-orange-600">5</div>
+                            <p class="text-xs text-gray-600">Day Streak</p>
+                        </div>
+                    </div>
+
+                    <!-- Weekly Calendar -->
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <div class="p-4 pb-3 border-b border-gray-100">
+                            <h3 class="font-medium flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-5 h-5"></i>
+                                Weekly Overview
+                            </h3>
+                        </div>
+                        <div class="p-4">
+                            <div class="grid grid-cols-7 gap-1 mb-4">
+                                <div class="text-center">
+                                    <p class="text-xs text-gray-600 mb-2">Mon</p>
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm bg-gray-100 cursor-pointer">18</div>
+                                    <div class="mt-2"><div class="w-2 h-2 rounded-full mx-auto bg-green-500"></div></div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-xs text-gray-600 mb-2">Tue</p>
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm bg-gray-900 text-white cursor-pointer">19</div>
+                                    <div class="mt-2"><div class="w-2 h-2 rounded-full mx-auto bg-green-500"></div></div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-xs text-gray-600 mb-2">Wed</p>
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm bg-gray-100 cursor-pointer">20</div>
+                                    <div class="mt-2"><div class="w-2 h-2 rounded-full mx-auto bg-yellow-500"></div></div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-xs text-gray-600 mb-2">Thu</p>
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm bg-gray-100 cursor-pointer">21</div>
+                                    <div class="mt-2"><div class="w-2 h-2 rounded-full mx-auto bg-green-500"></div></div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-xs text-gray-600 mb-2">Fri</p>
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm bg-gray-100 cursor-pointer">22</div>
+                                    <div class="mt-2"><div class="w-2 h-2 rounded-full mx-auto bg-yellow-500"></div></div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-xs text-gray-600 mb-2">Sat</p>
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm bg-gray-100 cursor-pointer">23</div>
+                                    <div class="mt-2"><div class="w-2 h-2 rounded-full mx-auto bg-green-500"></div></div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-xs text-gray-600 mb-2">Sun</p>
+                                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm bg-gray-100 cursor-pointer">24</div>
+                                    <div class="mt-2"><div class="w-2 h-2 rounded-full mx-auto bg-red-500"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Today's Schedule -->
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <div class="p-4 pb-3 border-b border-gray-100">
+                            <h3 class="font-medium flex items-center gap-2">
+                                <i data-lucide="pill" class="w-5 h-5"></i>
+                                Today's Schedule
+                            </h3>
+                        </div>
+                        <div class="p-4 space-y-4">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-4 h-4 rounded-full bg-blue-500"></div>
+                                        <div>
+                                            <p class="font-medium">Losartan 100mg</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs px-2 py-1 border border-gray-300 rounded-full">1 dose</span>
+                                </div>
+                                <div class="ml-7">
+                                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                        <div class="flex items-center space-x-3">
+                                            <i data-lucide="clock" class="w-4 h-4 text-gray-600"></i>
+                                            <span class="text-sm">8:00 AM</span>
+                                            <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full flex items-center">
+                                                <i data-lucide="check" class="w-3 h-3 mr-1"></i>
+                                                Taken
+                                            </span>
+                                        </div>
+                                        <div class="text-green-600">
+                                            <i data-lucide="check" class="w-5 h-5"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Insights -->
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <div class="p-4 pb-3 border-b border-gray-100">
+                            <h3 class="font-medium flex items-center gap-2">
+                                <i data-lucide="trending-up" class="w-5 h-5"></i>
+                                Progress Insights
+                            </h3>
+                        </div>
+                        <div class="p-4 space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm mb-2">
+                                    <span>Overall Adherence</span>
+                                    <span>78%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-gray-900 h-2 rounded-full" style="width: 78%"></div>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="text-sm text-blue-800">
+                                    💡 <strong>Tip:</strong> Set evening reminders to improve your overall adherence rate. You're doing great with morning doses!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pharmacies Screen -->
+            <div id="pharmacies-screen" class="screen">
+                <div class="p-4 space-y-6">
+                    <div class="space-y-2">
+                        <h2 class="text-2xl font-medium">Find Pharmacy</h2>
+                        <p class="text-gray-600">Locate nearby pharmacies and compare prices</p>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4">
+                        <input type="text" placeholder="Search by pharmacy name or location..." class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                    </div>
+
+                    <!-- Best Price Alert -->
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="dollar-sign" class="w-5 h-5 text-green-600"></i>
+                            <div>
+                                <p class="font-medium text-green-800">Best Price Found</p>
+                                <p class="text-sm text-green-700">Losartan 100mg for $14.50</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pharmacy List -->
+                    <div class="space-y-4">
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="p-4 pb-3 border-b border-gray-100">
+                                <div class="flex items-start justify-between">
+                                    <div class="space-y-1">
+                                        <h3 class="text-lg font-medium">CVS Pharmacy</h3>
+                                        <div class="flex items-center space-x-1">
+                                            <div class="flex">
+                                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                                <i data-lucide="star" class="w-4 h-4 text-gray-300"></i>
+                                            </div>
+                                            <span class="text-sm text-gray-600 ml-2">4.5 • Open until 9 PM</span>
+                                        </div>
+                                    </div>
+                                    <span class="bg-green-50 text-green-600 text-sm px-2 py-1 rounded-full border-0">5-10 min</span>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-4">
+                                <div class="flex items-start space-x-2">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-gray-600 mt-1"></i>
+                                    <div>
+                                        <p class="text-sm">123 Main St, Downtown</p>
+                                        <p class="text-sm text-gray-600">0.3 miles away</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-sm font-medium">Losartan 100mg</p>
+                                        <p class="text-sm text-gray-600">Generic available</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-lg">$15.99</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex space-x-2">
+                                    <button class="flex-1 flex items-center justify-center p-2 bg-gray-900 text-white text-sm rounded-md hover:bg-gray-800">
+                                        <i data-lucide="navigation" class="w-4 h-4 mr-2"></i>
+                                        Directions
+                                    </button>
+                                    <button class="flex-1 flex items-center justify-center p-2 border border-gray-300 text-sm rounded-md hover:bg-gray-50">
+                                        <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+                                        Call
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="p-4 pb-3 border-b border-gray-100">
+                                <div class="flex items-start justify-between">
+                                    <div class="space-y-1">
+                                        <h3 class="text-lg font-medium">Mercury Drug</h3>
+                                        <div class="flex items-center space-x-1">
+                                            <div class="flex">
+                                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                                <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                            </div>
+                                            <span class="text-sm text-gray-600 ml-2">4.7 • Open until 8 PM</span>
+                                        </div>
+                                    </div>
+                                    <span class="bg-green-50 text-green-600 text-sm px-2 py-1 rounded-full border-0">3-8 min</span>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-4">
+                                <div class="flex items-start space-x-2">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-gray-600 mt-1"></i>
+                                    <div>
+                                        <p class="text-sm">789 Pine St, Uptown</p>
+                                        <p class="text-sm text-gray-600">1.2 miles away</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="text-sm font-medium">Losartan 100mg</p>
+                                        <p class="text-sm text-gray-600">Generic available</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-lg">$14.50</p>
+                                        <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">Best Price</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex space-x-2">
+                                    <button class="flex-1 flex items-center justify-center p-2 bg-gray-900 text-white text-sm rounded-md hover:bg-gray-800">
+                                        <i data-lucide="navigation" class="w-4 h-4 mr-2"></i>
+                                        Directions
+                                    </button>
+                                    <button class="flex-1 flex items-center justify-center p-2 border border-gray-300 text-sm rounded-md hover:bg-gray-50">
+                                        <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+                                        Call
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div id="profile-screen" class="screen">
+                <div class="p-4 space-y-6">
+                    <!-- Profile Header -->
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center text-white text-xl">M</div>
+                            <div class="flex-1">
+                                <h2 class="text-xl font-medium">Maria</h2>
+                                <p class="text-gray-600">maria@example.com</p>
+                                <div class="flex space-x-2 mt-2">
+                                    <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">Patient</span>
+                                    <span class="border border-green-200 text-green-600 text-xs px-2 py-1 rounded-full">Verified</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4 text-center">
+                            <div class="text-2xl font-bold text-blue-600">3</div>
+                            <p class="text-xs text-gray-600">Active Prescriptions</p>
+                        </div>
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4 text-center">
+                            <div class="text-2xl font-bold text-green-600">85%</div>
+                            <p class="text-xs text-gray-600">Adherence Rate</p>
+                        </div>
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4 text-center">
+                            <div class="text-2xl font-bold text-orange-600">2</div>
+                            <p class="text-xs text-gray-600">Refills Due</p>
+                        </div>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <div class="p-4 pb-3 border-b border-gray-100">
+                            <h3 class="font-medium flex items-center gap-2">
+                                <i data-lucide="bell" class="w-5 h-5"></i>
+                                Notification Settings
+                            </h3>
+                        </div>
+                        <div class="p-4 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Medication Reminders</p>
+                                    <p class="text-sm text-gray-600">Daily medication schedule alerts</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Refill Reminders</p>
+                                    <p class="text-sm text-gray-600">Get notified when prescriptions need refilling</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Pharmacy Updates</p>
+                                    <p class="text-sm text-gray-600">Updates from your preferred pharmacy</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information -->
+                    <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <div class="p-4 pb-3 border-b border-gray-100">
+                            <h3 class="font-medium flex items-center gap-2">
+                                <i data-lucide="user" class="w-5 h-5"></i>
+                                Personal Information
+                            </h3>
+                        </div>
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-center justify-between py-2">
+                                <div>
+                                    <p class="text-sm font-medium">Full Name</p>
+                                    <p class="text-sm text-gray-600">Maria Rodriguez</p>
+                                </div>
+                                <button class="text-sm text-gray-600 hover:text-gray-900">Edit</button>
+                            </div>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="flex items-center justify-between py-2">
+                                <div>
+                                    <p class="text-sm font-medium">Phone</p>
+                                    <p class="text-sm text-gray-600">+1 (555) 123-4567</p>
+                                </div>
+                                <button class="text-sm text-gray-600 hover:text-gray-900">Edit</button>
+                            </div>
+                            <div class="border-t border-gray-100"></div>
+                            <div class="flex items-center justify-between py-2">
+                                <div>
+                                    <p class="text-sm font-medium">Insurance Provider</p>
+                                    <p class="text-sm text-gray-600">Blue Cross Blue Shield</p>
+                                </div>
+                                <button class="text-sm text-gray-600 hover:text-gray-900">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Information -->
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <div class="space-y-2">
+                            <h3 class="font-medium text-red-800">Emergency Information</h3>
+                            <p class="text-sm text-red-700">
+                                In case of medical emergency, call 911 immediately. Your medication list and allergies are accessible to emergency responders.
+                            </p>
+                            <button class="text-sm px-3 py-1 border border-red-200 text-red-700 rounded-md hover:bg-red-100">
+                                View Emergency Profile
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Logout -->
+                    <button class="w-full flex items-center justify-center p-3 border border-red-200 text-red-600 rounded-lg hover:bg-red-50">
+                        <i data-lucide="log-out" class="w-4 h-4 mr-2"></i>
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200">
+            <div class="flex justify-around py-2">
+                <button class="nav-item active flex flex-col items-center py-2 px-3 rounded-lg transition-colors" data-screen="home">
+                    <i data-lucide="home" class="w-5 h-5 mb-1"></i>
+                    <span class="text-xs">Home</span>
+                </button>
+                <button class="nav-item flex flex-col items-center py-2 px-3 rounded-lg transition-colors" data-screen="prescriptions">
+                    <i data-lucide="pill" class="w-5 h-5 mb-1"></i>
+                    <span class="text-xs">Meds</span>
+                </button>
+                <button class="nav-item flex flex-col items-center py-2 px-3 rounded-lg transition-colors" data-screen="pharmacies">
+                    <i data-lucide="map-pin" class="w-5 h-5 mb-1"></i>
+                    <span class="text-xs">Pharmacies</span>
+                </button>
+                <button class="nav-item flex flex-col items-center py-2 px-3 rounded-lg transition-colors" data-screen="chat">
+                    <i data-lucide="message-circle" class="w-5 h-5 mb-1"></i>
+                    <span class="text-xs">Chat</span>
+                </button>
+                <button class="nav-item flex flex-col items-center py-2 px-3 rounded-lg transition-colors" data-screen="profile">
+                    <i data-lucide="user" class="w-5 h-5 mb-1"></i>
+                    <span class="text-xs">Profile</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
