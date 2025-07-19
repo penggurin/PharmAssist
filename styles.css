@@ -265,3 +265,10 @@ button:focus {
         transform: translateY(0);
     }
 }
+
+.screen:not(.active) {
+    display: none;
+}
+.screen.active {
+    display: block;
+}
