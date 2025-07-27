@@ -181,19 +181,24 @@ input:checked + .slider:before {
 
 /* Tab styles for prescriptions */
 .prescription-tab {
-    color: #6b7280;
+    color: #6b7280; /* Gray-500 */
     border-bottom: 2px solid transparent;
-    transition: all 0.2s ease-in-out;
+    transition: color 0.2s, border-bottom 0.2s;
+    background: none;
+    cursor: pointer;
+    font-weight: 500;
 }
+
 
 .prescription-tab:hover {
     color: #374151;
 }
 
 .prescription-tab.active {
-    color: #1f2937;
+    color: #1f2937; /* Gray-900 */
     border-bottom-color: #1f2937;
 }
+
 
 .tab-content {
     display: none;
@@ -390,8 +395,9 @@ button:focus {
 
 /* Animation for screen transitions */
 .screen-transition {
-    animation: fadeIn 0.3s ease-in-out;
+  transition: none !important;
 }
+
 
 @keyframes fadeIn {
     from {
@@ -499,4 +505,108 @@ input[type="checkbox"]:focus {
 }
 .screen.active {
     display: block;
+}
+
+.prescription-card {
+  transition: box-shadow 0.2s;
+  box-shadow: 0 4px 12px -2px rgba(0,0,0,0.08);
+  margin-bottom: 1.5rem;
+  border-radius: 0.75rem;
+  border-width: 1px;
+  background: #fff;
+}
+
+.prescription-toggle {
+  user-select: none;
+  border-radius: 0.75rem 0.75rem 0 0;
+  background: transparent;
+  transition: background 0.15s;
+}
+.prescription-toggle:hover, .prescription-toggle:focus {
+  background: #f5f5f5;
+}
+.prescription-toggle .dropdown-icon {
+  transition: transform 0.2s;
+}
+.prescription-toggle.active .dropdown-icon,
+.prescription-toggle .dropdown-icon.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.prescription-dropdown {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.2s, padding 0.2s;
+  padding: 0 0.5rem;
+  border-radius: 0 0 0.75rem 0.75rem;
+  background: #fff;
+}
+.prescription-dropdown.active {
+  max-height: 800px;
+  opacity: 1;
+  padding: 1.5rem 0.5rem 1rem 0.5rem;
+}
+
+.prescription-dropdown ul {
+  margin-left: 1rem;
+}
+
+.prescription-dropdown .font-bold {
+  font-weight: 600;
+}
+
+.prescription-dropdown hr {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  border-width: 1px;
+  border-color: #e5e7eb;
+}
+
+.prescription-dropdown {
+    transition: max-height 0.3s cubic-bezier(.4,0,.2,1), opacity 0.2s, padding 0.2s;
+}
+.prescription-dropdown.hidden {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    display: none;
+}
+.prescription-dropdown:not(.hidden) {
+    max-height: 800px;
+    opacity: 1;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: block;
+}
+
+.more-info-toggle {
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+    border: none;
+    background: none;
+}
+
+.prescription-tab {
+    transition: color 0.2s, border-bottom 0.2s;
+    background: none;
+    cursor: pointer;
+}
+.prescription-tab.active {
+    color: #1f2937;
+    border-bottom-color: #1f2937;
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+
+.prescription-tab:not(.active) {
+    color: #6b7280; /* Gray-500 */
+    border-bottom-color: transparent;
 }
