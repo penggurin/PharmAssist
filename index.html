@@ -35,7 +35,7 @@
                         <div>
                             <label for="login-email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                             <div class="mt-2">
-                                <input id="login-email" name="email" type="email" autocomplete="email" required 
+                                <input id="login-email" name="email" type="email" autocomplete="email"  
                                     class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-900 sm:text-sm sm:leading-6"
                                     placeholder="Enter your email">
                             </div>
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <input id="login-password" name="password" type="password" autocomplete="current-password" required 
+                                <input id="login-password" name="password" type="password" autocomplete="current-password"  
                                     class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-900 sm:text-sm sm:leading-6"
                                     placeholder="Enter your password">
                             </div>
@@ -67,27 +67,12 @@
                             </button>
                         </div>
 
-                        <div class="relative mt-6">
-                            <div class="absolute inset-0 flex items-center">
-                                <div class="w-full border-t border-gray-300"></div>
-                            </div>
-                            <div class="relative flex justify-center text-sm">
-                                <span class="bg-white px-2 text-gray-500">Quick demo access</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <button type="button" onclick="demoLogin()" 
-                                class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
-                                Continue as Demo User (Maria)
-                            </button>
-                        </div>
                     </form>
 
-                    <p class="mt-10 text-center text-sm text-gray-500">
+                    <p class="mt-2 text-center text-sm text-gray-500">
                         Don't have an account?
                         <button onclick="showAuthScreen('signup')" class="font-semibold leading-6 text-gray-900 hover:text-gray-700">Create one now</button>
-                    </p>
+                    </p>    
                 </div>
             </div>
         </div>
@@ -162,9 +147,9 @@
                         </div>
                     </form>
 
-                    <p class="mt-10 text-center text-sm text-gray-500">
+                    <p class="mt-2 text-center text-sm text-gray-500">
                         Already have an account?
-                        <button onclick="showAuthScreen('login')" class="font-semibold leading-6 text-gray-900 hover:text-gray-700">Sign in</button>
+                        <button a = "main-app" class="font-semibold leading-6 text-gray-900 hover:text-gray-700">Sign in</button>
                     </p>
                 </div>
             </div>
@@ -180,6 +165,12 @@
                             <i data-lucide="pill" class="w-5 h-5"></i>
                         </div>
                         <h1 class="text-lg font-medium">PharmAssist</h1>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm" id="user-greeting">Hi Maria!</span>
+                        <button onclick="logout()" class="p-1 hover:bg-white/10 rounded">
+                            <i data-lucide="log-out" class="w-4 h-4"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -324,98 +315,188 @@
                 </div>
 
                 <!-- Prescriptions Screen -->
-                <div id="prescriptions-screen" class="screen">
-                    <div class="p-4">
-                        <div class="mb-6">
-                            <h2 class="text-2xl font-medium mb-2">My Prescriptions</h2>
-                            <p class="text-gray-600">Manage your current and past medications</p>
-                        </div>
-
-                        <!-- Tabs -->
-                        <div class="mb-4">
-                            <div class="border-b border-gray-200">
-                                <nav class="flex space-x-8">
-                                    <button class="prescription-tab active py-2 px-1 border-b-2 border-gray-900 text-gray-900 text-sm font-medium" data-tab="current">
-                                        Current Prescriptions
-                                    </button>
-                                    <button class="prescription-tab py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 text-sm font-medium" data-tab="past">
-                                        Past Medications
-                                    </button>
-                                </nav>
+<div id="prescriptions-screen" class="screen">
+    <div class="p-4">
+        <div class="mb-6">
+            <h2 class="text-2xl font-medium mb-2">My Prescriptions</h2>
+            <p class="text-gray-600">Manage your current and past medications</p>
+        </div>
+        <!-- Tabs -->
+        <div class="mb-4">
+            <div class="border-b border-gray-200">
+                <nav class="flex space-x-8">
+                    <button class="prescription-tab active py-2 px-1 border-b-2 border-gray-900 text-gray-900 text-sm font-medium"
+                        data-tab="current">
+                        Current Prescriptions
+                    </button>
+                    <button class="prescription-tab py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 text-sm font-medium"
+                        data-tab="past">
+                        Past Medications
+                    </button>
+                </nav>
+            </div>
+        </div>
+        <!-- Current Prescriptions -->
+        <div id="current-prescriptions" class="tab-content active space-y-4">
+            <!-- Losartan Card -->
+            <div class="bg-white rounded-lg border border-orange-200 shadow-sm bg-orange-50/30">
+                <div class="p-4 pb-3 border-b border-orange-100">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <i data-lucide="pill" class="w-5 h-5 text-gray-900"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium">Losartan 100mg</h3>
+                                <p class="text-sm text-gray-600">Once daily</p>
                             </div>
                         </div>
-
-                        <!-- Current Prescriptions -->
-                        <div id="current-prescriptions" class="tab-content active space-y-4">
-                            <div class="bg-white rounded-lg border border-orange-200 shadow-sm bg-orange-50/30">
-                                <div class="p-4 pb-3 border-b border-orange-100">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                                                <i data-lucide="pill" class="w-5 h-5 text-gray-900"></i>
-                                            </div>
-                                            <div>
-                                                <h3 class="text-lg font-medium">Losartan 100mg</h3>
-                                                <p class="text-sm text-gray-600">Once daily</p>
-                                            </div>
-                                        </div>
-                                        <span class="bg-red-600 text-white text-xs px-2 py-1 rounded-full">Refill Needed</span>
-                                    </div>
-                                </div>
-                                <div class="p-4">
-                                    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
-                                        <span class="text-gray-600">Prescribed by:</span>
-                                        <span>Dr. Lopez</span>
-                                        <span class="text-gray-600">Date issued:</span>
-                                        <span>2024-01-15</span>
-                                        <span class="text-gray-600">Refills left:</span>
-                                        <span class="text-orange-600">0</span>
-                                    </div>
-                                    <div class="p-3 bg-gray-50 rounded-lg mb-4">
-                                        <p class="text-sm">
-                                            <strong>Instructions:</strong> Take with or without food. Monitor blood pressure regularly.
-                                        </p>
-                                    </div>
-                                    <button class="px-4 py-2 bg-orange-600 text-white text-sm rounded-md hover:bg-orange-700">
-                                        Contact Doctor
-                                    </button>
-                                </div>
+                        <span class="bg-red-600 text-white text-xs px-2 py-1 rounded-full">Refill Needed</span>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+                        <span class="text-gray-600">Prescribed by:</span>
+                        <span>Dr. Lopez</span>
+                        <span class="text-gray-600">Date issued:</span>
+                        <span>2024-01-15</span>
+                        <span class="text-gray-600">Refills left:</span>
+                        <span class="text-orange-600">0</span>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded-lg mb-4">
+                        <p class="text-sm">
+                            <strong>Instructions:</strong> Take with or without food. Monitor blood pressure regularly.
+                        </p>
+                    </div>
+                    <!-- More Info Dropdown Button -->
+                    <button class="more-info-toggle flex items-center text-sm text-orange-700 font-medium px-3 py-1 rounded hover:bg-orange-100 transition mb-2"
+                        data-id="losartan">
+                        <span>More Info</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                    </button>
+                    <!-- Dropdown Content -->
+                    <div class="prescription-dropdown hidden bg-orange-50 p-4 rounded-lg border border-orange-100 mb-2" id="dropdown-losartan">
+                        <div class="space-y-4 text-sm text-gray-900">
+                            <div>
+                                <span class="font-semibold">Class:</span> Angiotensin II Receptor Blocker (ARB)
                             </div>
-
-                            <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
-                                <div class="p-4 pb-3 border-b border-gray-100">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                                                <i data-lucide="pill" class="w-5 h-5 text-gray-900"></i>
-                                            </div>
-                                            <div>
-                                                <h3 class="text-lg font-medium">Metformin 500mg</h3>
-                                                <p class="text-sm text-gray-600">Twice daily</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="p-4">
-                                    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
-                                        <span class="text-gray-600">Prescribed by:</span>
-                                        <span>Dr. Johnson</span>
-                                        <span class="text-gray-600">Date issued:</span>
-                                        <span>2024-01-10</span>
-                                        <span class="text-gray-600">Refills left:</span>
-                                        <span>2</span>
-                                    </div>
-                                    <div class="p-3 bg-gray-50 rounded-lg mb-4">
-                                        <p class="text-sm">
-                                            <strong>Instructions:</strong> Take with meals to reduce stomach upset.
-                                        </p>
-                                    </div>
-                                    <button class="px-4 py-2 bg-gray-900 text-white text-sm rounded-md hover:bg-gray-800">
-                                        Request Refill
-                                    </button>
-                                </div>
+                            <div>
+                                <span class="font-semibold">Indications:</span>
+                                <ul class="list-disc ml-5 mt-1">
+                                    <li>Hypertension</li>
+                                    <li>Diabetic nephropathy in type 2 diabetes</li>
+                                    <li>Reducing stroke risk (LVH patients)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <span class="font-semibold">Dosage & Administration:</span>
+                                <ul class="list-disc ml-5 mt-1">
+                                    <li>Start: 50 mg once daily; may increase to 100 mg</li>
+                                    <li>Can be taken with or without food</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <span class="font-semibold">Side Effects:</span>
+                                <ul class="list-disc ml-5 mt-1">
+                                    <li>Dizziness, fatigue, cough, diarrhea, elevated potassium</li>
+                                    <li>Rare: Angioedema, significant hypotension</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <span class="font-semibold">Precautions:</span>
+                                <ul class="list-disc ml-5 mt-1">
+                                    <li>Monitor renal function and potassium</li>
+                                    <li>Contraindicated in pregnancy</li>
+                                    <li>Avoid with aliskiren in diabetics</li>
+                                </ul>
                             </div>
                         </div>
+                    </div>
+                    <button class="px-4 py-2 bg-orange-600 text-white text-sm rounded-md hover:bg-orange-700">
+                        Contact Doctor
+                    </button>
+                </div>
+            </div>
+            <!-- Metformin Card -->
+            <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                <div class="p-4 pb-3 border-b border-gray-100">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <i data-lucide="pill" class="w-5 h-5 text-gray-900"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-medium">Metformin 500mg</h3>
+                                <p class="text-sm text-gray-600">Twice daily</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+                        <span class="text-gray-600">Prescribed by:</span>
+                        <span>Dr. Johnson</span>
+                        <span class="text-gray-600">Date issued:</span>
+                        <span>2024-01-10</span>
+                        <span class="text-gray-600">Refills left:</span>
+                        <span>2</span>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded-lg mb-4">
+                        <p class="text-sm">
+                            <strong>Instructions:</strong> Take with meals to reduce stomach upset.
+                        </p>
+                    </div>
+                    <!-- More Info Dropdown Button -->
+                    <button class="more-info-toggle flex items-center text-sm text-blue-700 font-medium px-3 py-1 rounded hover:bg-blue-100 transition mb-2"
+                        data-id="metformin">
+                        <span>More Info</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                    </button>
+                    <!-- Dropdown Content -->
+                    <div class="prescription-dropdown hidden bg-blue-50 p-4 rounded-lg border border-blue-100 mb-2" id="dropdown-metformin">
+                        <div class="space-y-4 text-sm text-gray-900">
+                            <div>
+                                <span class="font-semibold">Class:</span> Biguanide Antidiabetic Agent
+                            </div>
+                            <div>
+                                <span class="font-semibold">Indications:</span>
+                                <ul class="list-disc ml-5 mt-1">
+                                    <li>Type 2 diabetes (first-line)</li>
+                                    <li>Off-label: PCOS, gestational diabetes, obesity</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <span class="font-semibold">Dosage & Administration:</span>
+                                <ul class="list-disc ml-5 mt-1">
+                                    <li>IR: 500 mg twice daily or 850 mg once daily with meals</li>
+                                    <li>Increase weekly by 500 mg (max 2000–2550 mg/day)</li>
+                                    <li>ER: Start at 500 mg once daily, titrate to max 2000 mg/day</li>
+                                    <li>Take with meals; do not crush/chew ER tablets</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <span class="font-semibold">Side Effects:</span>
+                                <ul class="list-disc ml-5 mt-1">
+                                    <li>Nausea, diarrhea, gas, upset stomach, B12 deficiency</li>
+                                    <li>Rare: Lactic acidosis</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <span class="font-semibold">Precautions:</span>
+                                <ul class="list-disc ml-5 mt-1">
+                                    <li>Avoid if eGFR &lt;30</li>
+                                    <li>Caution if eGFR 30–45</li>
+                                    <li>May interact with insulin/sulfonylureas (risk: hypoglycemia)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="px-4 py-2 bg-gray-900 text-white text-sm rounded-md hover:bg-gray-800">
+                        Request Refill
+                    </button>
+                </div>
+            </div>
+        </div>  
 
                         <!-- Past Prescriptions -->
                         <div id="past-prescriptions" class="tab-content space-y-4">
@@ -684,10 +765,10 @@
                         <!-- Best Price Alert -->
                         <div class="bg-green-50 border border-green-200 rounded-lg p-4">
                             <div class="flex items-center space-x-2">
-                                <i data-lucide="dollar-sign" class="w-5 h-5 text-green-600"></i>
+                                <i data-lucide="philippine-peso" class="w-5 h-5 text-green-600"></i>
                                 <div>
                                     <p class="font-medium text-green-800">Best Price Found</p>
-                                    <p class="text-sm text-green-700">Losartan 100mg for $14.50</p>
+                                    <p class="text-sm text-green-700">Losartan 100mg for ₱14.50</p>
                                 </div>
                             </div>
                         </div>
@@ -728,7 +809,7 @@
                                             <p class="text-sm text-gray-600">Generic available</p>
                                         </div>
                                         <div class="text-right">
-                                            <p class="font-bold text-lg">$15.99</p>
+                                            <p class="font-bold text-lg">₱15.99</p>
                                         </div>
                                     </div>
 
@@ -779,7 +860,7 @@
                                             <p class="text-sm text-gray-600">Generic available</p>
                                         </div>
                                         <div class="text-right">
-                                            <p class="font-bold text-lg">$14.50</p>
+                                            <p class="font-bold text-lg">₱14.50</p>
                                             <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">Best Price</span>
                                         </div>
                                     </div>
@@ -806,10 +887,10 @@
                         <!-- Profile Header -->
                         <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
                             <div class="flex items-center space-x-4">
-                                <div class="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center text-white text-xl">M</div>
+                                <div class="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center text-white text-xl font-bold">M</div>
                                 <div class="flex-1">
-                                    <h2 class="text-xl font-medium">Maria</h2>
-                                    <p class="text-gray-600">maria@example.com</p>
+                                    <h2 class="text-xl font-semibold">Maria Rodriguez</h2>
+                                    <p class="text-gray-500">maria@example.com</p>
                                     <div class="flex space-x-2 mt-2">
                                         <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">Patient</span>
                                         <span class="border border-green-200 text-green-600 text-xs px-2 py-1 rounded-full">Verified</span>
@@ -831,6 +912,180 @@
                             <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-4 text-center">
                                 <div class="text-2xl font-bold text-orange-600">2</div>
                                 <p class="text-xs text-gray-600">Refills Due</p>
+                            </div>
+                        </div>
+
+                        <!-- Personal Information -->
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="p-4 pb-3 border-b border-gray-100">
+                                <h3 class="font-medium flex items-center gap-2">
+                                    <i data-lucide="user" class="w-5 h-5"></i>
+                                    Personal Information
+                                </h3>
+                            </div>
+                            <div class="p-4 space-y-4">
+                                <!-- Basic Info Grid -->
+                                <div class="grid grid-cols-2 gap-4 text-sm">
+                                    <div class="space-y-1">
+                                        <p class="font-medium text-gray-800">Full Name</p>
+                                        <p class="text-gray-600">Maria Rodriguez</p>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <p class="font-medium text-gray-800">Age</p>
+                                        <p class="text-gray-600">42</p>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <p class="font-medium text-gray-800">Gender</p>
+                                        <p class="text-gray-600">Female</p>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <p class="font-medium text-gray-800">Blood Type</p>
+                                        <p class="text-gray-600">O+</p>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <p class="font-medium text-gray-800">Height</p>
+                                        <p class="text-gray-600">160 cm</p>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <p class="font-medium text-gray-800">Weight</p>
+                                        <p class="text-gray-600">63 kg</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medical Background -->
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="p-4 pb-3 border-b border-gray-100">
+                                <h3 class="font-medium flex items-center gap-2">
+                                    <i data-lucide="heart" class="w-5 h-5 text-red-500"></i>
+                                    Medical Background
+                                </h3>
+                            </div>
+                            <div class="p-4 space-y-4">
+                                <div>
+                                    <p class="font-medium text-gray-800 mb-2">Allergies</p>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• Penicillin (rash, mild reaction)</li>
+                                        <li>• Shellfish (avoidance recommended)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800 mb-2">Medical Conditions</p>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• Hypertension (diagnosed 2019)</li>
+                                        <li>• Type 2 Diabetes Mellitus (diagnosed 2022)</li>
+                                        <li>• Mild GERD (as needed use of antacids)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Current Medications -->
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="p-4 pb-3 border-b border-gray-100">
+                                <h3 class="font-medium flex items-center gap-2">
+                                    <i data-lucide="pill" class="w-5 h-5 text-blue-500"></i>
+                                    Current Medications
+                                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Auto-synced</span>
+                                </h3>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                        <div>
+                                            <p class="font-medium text-sm">Losartan 100mg</p>
+                                            <p class="text-xs text-gray-600">Once daily • For hypertension</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <div>
+                                            <p class="font-medium text-sm">Metformin 850mg</p>
+                                            <p class="text-xs text-gray-600">Twice daily with meals • For diabetes</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preferred Pharmacy -->
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="p-4 pb-3 border-b border-gray-100">
+                                <h3 class="font-medium flex items-center gap-2">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-green-500"></i>
+                                    Preferred Pharmacy
+                                </h3>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                        <i data-lucide="building" class="w-5 h-5 text-green-600"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium">Mercury Drug - Tomas Morato Branch</p>
+                                        <p class="text-sm text-gray-600 mt-1">18 Tomas Morato Ave, Quezon City, Metro Manila</p>
+                                        <p class="text-sm text-gray-600">Contact: (02) 8372 1234</p>
+                                        <div class="mt-2">
+                                            <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Refill Reminders</span>
+                                            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full ml-1">Curbside Pickup</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Contact -->
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="p-4 pb-3 border-b border-gray-100">
+                                <h3 class="font-medium flex items-center gap-2">
+                                    <i data-lucide="phone" class="w-5 h-5 text-red-500"></i>
+                                    Emergency Contact
+                                </h3>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium">Gabriel Ramirez</p>
+                                        <p class="text-sm text-gray-600">Husband</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-sm font-medium">+63 917 234 5678</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Insurance Details -->
+                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+                            <div class="p-4 pb-3 border-b border-gray-100">
+                                <h3 class="font-medium flex items-center gap-2">
+                                    <i data-lucide="shield" class="w-5 h-5 text-purple-500"></i>
+                                    Insurance Details
+                                </h3>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <div class="grid grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <p class="font-medium text-gray-800">Provider</p>
+                                        <p class="text-gray-600">PhilCare</p>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Plan</p>
+                                        <p class="text-gray-600">MyMax Gold</p>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Coverage</p>
+                                        <p class="text-gray-600">Outpatient + Chronic</p>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Valid Until</p>
+                                        <p class="text-gray-600">Dec 2026</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -863,62 +1118,20 @@
                                         <span class="slider"></span>
                                     </label>
                                 </div>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <p class="font-medium">Pharmacy Updates</p>
-                                        <p class="text-sm text-gray-600">Updates from your preferred pharmacy</p>
-                                    </div>
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Personal Information -->
-                        <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
-                            <div class="p-4 pb-3 border-b border-gray-100">
-                                <h3 class="font-medium flex items-center gap-2">
-                                    <i data-lucide="user" class="w-5 h-5"></i>
-                                    Personal Information
-                                </h3>
-                            </div>
-                            <div class="p-4 space-y-3">
-                                <div class="flex items-center justify-between py-2">
-                                    <div>
-                                        <p class="text-sm font-medium">Full Name</p>
-                                        <p class="text-sm text-gray-600">Maria Rodriguez</p>
-                                    </div>
-                                    <button class="text-sm text-gray-600 hover:text-gray-900">Edit</button>
-                                </div>
-                                <div class="border-t border-gray-100"></div>
-                                <div class="flex items-center justify-between py-2">
-                                    <div>
-                                        <p class="text-sm font-medium">Phone</p>
-                                        <p class="text-sm text-gray-600">+1 (555) 123-4567</p>
-                                    </div>
-                                    <button class="text-sm text-gray-600 hover:text-gray-900">Edit</button>
-                                </div>
-                                <div class="border-t border-gray-100"></div>
-                                <div class="flex items-center justify-between py-2">
-                                    <div>
-                                        <p class="text-sm font-medium">Insurance Provider</p>
-                                        <p class="text-sm text-gray-600">Blue Cross Blue Shield</p>
-                                    </div>
-                                    <button class="text-sm text-gray-600 hover:text-gray-900">Edit</button>
-                                </div>
                             </div>
                         </div>
 
                         <!-- Emergency Information -->
                         <div class="bg-red-50 border border-red-200 rounded-lg p-4">
                             <div class="space-y-2">
-                                <h3 class="font-medium text-red-800">Emergency Information</h3>
+                                <h3 class="font-medium text-red-800 flex items-center gap-2">
+                                    <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                                    Emergency Information
+                                </h3>
                                 <p class="text-sm text-red-700">
                                     In case of medical emergency, call 911 immediately. Your medication list and allergies are accessible to emergency responders.
                                 </p>
-                                <button class="text-sm px-3 py-1 border border-red-200 text-red-700 rounded-md hover:bg-red-100">
+                                <button class="text-sm px-3 py-1 border border-red-200 text-red-700 rounded-md hover:bg-red-100 mt-2">
                                     View Emergency Profile
                                 </button>
                             </div>
@@ -930,7 +1143,6 @@
                             Sign Out
                         </button>
                     </div>
-                </div>
             </div>
 
             <!-- Bottom Navigation -->
@@ -962,21 +1174,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script>
-        // Initialize Lucide icons after everything loads
-        document.addEventListener('DOMContentLoaded', function() {
-            lucide.createIcons();
-            
-            // Reinitialize icons whenever content changes
-            const observer = new MutationObserver(function(mutations) {
-                lucide.createIcons();
-            });
-            
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-        });
-    </script>
 </body>
 </html>
