@@ -357,6 +357,76 @@ function initializePrescriptionDropdowns() {
     });
 }
 
+
+function updateProfileScreen() {
+    if (!currentUser) return;
+    // Name
+    const nameEl = document.querySelector('#profile-screen h2');
+    if (nameEl) nameEl.textContent = currentUser.name;
+    // Email
+    const emailEl = document.querySelector('#profile-screen p.text-gray-500');
+    if (emailEl) emailEl.textContent = currentUser.email;
+    // Optional: Update avatar initial
+    const avatarEl = document.querySelector('#profile-screen .w-16.h-16');
+    if (avatarEl && currentUser.name && currentUser.name.length > 0) {
+        avatarEl.textContent = currentUser.name[0].toUpperCase();
+    }
+}
+
+// --- Patch showMainApp and showScreen to call updateProfileScreen when profile is shown ---
+
+// Save the original showScreen
+const originalShowScreen = showScreen;
+showScreen = function(screenName) {
+    originalShowScreen(screenName);
+    if (screenName === "profile") {
+        updateProfileScreen();
+    }
+};
+
+// Patch showMainApp to update profile if needed
+const originalShowMainApp = showMainApp;
+showMainApp = function() {
+    originalShowMainApp();
+    // If the profile screen is active, update it
+    if (document.getElementById('profile-screen')?.classList.contains('active')) {
+        updateProfileScreen();
+    }
+};
+
+// --- Also call updateProfileScreen after signup and login ---
+
+// In your initializeAuthForms, after setting currentUser and calling showMainApp, add:
+function initializeAuthForms() {
+    // Login form
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            isAuthenticated = true;
+            currentUser = {
+                name: 'Maria Rodriguez',
+                email: 'maria@example.com'
+            };
+            showMainApp();
+            updateProfileScreen(); // <-- add this
+        });
+    }
+    // Signup form
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            isAuthenticated = true;
+            const name = document.getElementById('signup-name').value.trim() || 'Maria Rodriguez';
+            const email = document.getElementById('signup-email').value.trim() || 'maria@example.com';
+            currentUser = { name, email };
+            showMainApp();
+            updateProfileScreen(); // <-- add this
+        });
+    }
+}
+
 // Export functions for global access
 window.showScreen = showScreen;
 window.showAuthScreen = showAuthScreen;
