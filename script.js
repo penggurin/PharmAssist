@@ -375,23 +375,18 @@ function updateProfileScreen() {
 
 // --- Patch showMainApp and showScreen to call updateProfileScreen when profile is shown ---
 
-// Save the original showScreen
-const originalShowScreen = showScreen;
-showScreen = function(screenName) {
-    originalShowScreen(screenName);
-    if (screenName === "profile") {
-        updateProfileScreen();
-    }
-};
-
-// Patch showMainApp to update profile if needed
+// Patch showMainApp to always select Home nav item after showing Home
 const originalShowMainApp = showMainApp;
 showMainApp = function() {
     originalShowMainApp();
-    // If the profile screen is active, update it
-    if (document.getElementById('profile-screen')?.classList.contains('active')) {
-        updateProfileScreen();
-    }
+    updateNavSelectionForScreen('home');
+};
+
+// Patch showScreen to always update nav selection
+const originalShowScreen = showScreen;
+showScreen = function(screenName) {
+    originalShowScreen(screenName);
+    updateNavSelectionForScreen(screenName);
 };
 
 // --- Also call updateProfileScreen after signup and login ---
@@ -426,6 +421,19 @@ function initializeAuthForms() {
         });
     }
 }
+// Helper to update nav item based on screen name
+function updateNavSelectionForScreen(screenName) {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        const itemScreen = item.getAttribute('data-screen');
+        if (itemScreen === screenName) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
 
 // Export functions for global access
 window.showScreen = showScreen;
