@@ -433,7 +433,27 @@ function updateNavSelectionForScreen(screenName) {
         }
     });
 }
-
+function updateProfileScreen() {
+    if (!currentUser) return;
+    // Update profile header name
+    const nameEl = document.querySelector('#profile-screen h2');
+    if (nameEl) nameEl.textContent = currentUser.name;
+    // Update email
+    const emailEl = document.querySelector('#profile-screen p.text-gray-500');
+    if (emailEl) emailEl.textContent = currentUser.email;
+    // Update avatar initial
+    const avatarEl = document.querySelector('#profile-screen .w-16.h-16');
+    if (avatarEl && currentUser.name && currentUser.name.length > 0) {
+        avatarEl.textContent = currentUser.name[0].toUpperCase();
+    }
+    // Update Full Name in basic info grid
+    // Finds the <p> with text `Full Name`, then updates the next sibling <p>
+    const fullNameLabel = Array.from(document.querySelectorAll('#profile-screen .font-medium'))
+        .find(el => el.textContent.trim() === 'Full Name');
+    if (fullNameLabel && fullNameLabel.nextElementSibling) {
+        fullNameLabel.nextElementSibling.textContent = currentUser.name;
+    }
+}
 
 // Export functions for global access
 window.showScreen = showScreen;
